@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         html {
-            scroll-behavior: smooth; /* Ensures smooth scrolling for anchor links */
+            scroll-behavior: smooth; /* Fallback for browsers not targeted by JS scroll, or if JS fails */
         }
         body {
             font-family: 'Noto Sans Georgian', sans-serif;
@@ -433,7 +433,6 @@
                 if (entry.isIntersecting) {
                     let delay = 0;
                     if (entry.target.classList.contains('product-card')) {
-                        // Calculate delay based on its position in the grid for a nice row-by-row effect
                         const cardsInRow = window.innerWidth < 640 ? 1 : (window.innerWidth < 1024 ? 2 : 4);
                         delay = (Array.from(entry.target.parentNode.children).indexOf(entry.target) % cardsInRow) * 0.12;
                     } else if (entry.target.classList.contains('feature-icon-container')) {
@@ -451,53 +450,86 @@
             observer.observe(el);
         });
         
-        // Active navigation link highlighting
-        const sections = document.querySelectorAll('section[id]');
+        // Header, Nav Links, and Scroll Logic
+        const headerElement = document.querySelector('header');
         const navLinks = document.querySelectorAll('#mainNav a.nav-link');
-        const headerElement = document.querySelector('header'); // Get the header element
+        const sections = document.querySelectorAll('section[id]');
         let headerHeight = 0;
-        if (headerElement) { // Check if headerElement is found
-             headerHeight = headerElement.offsetHeight;
+
+        function updateHeaderHeight() {
+            if (headerElement) {
+                headerHeight = headerElement.offsetHeight;
+            }
+        }
+        
+        // Function to handle smooth scroll to section with offset
+        function scrollToSection(event) {
+            event.preventDefault(); // Prevent default anchor jump
+            const targetId = event.currentTarget.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+
+            if (targetSection) {
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Add click listeners to nav links for smooth scroll
+        navLinks.forEach(link => {
+            link.addEventListener('click', scrollToSection);
+        });
+        
+        // Also add to the logo link if it points to #hero
+        const logoLink = document.querySelector('header > div > a[href="#hero"]');
+        if (logoLink) {
+            logoLink.addEventListener('click', scrollToSection);
         }
 
 
+        // Active navigation link highlighting
         function updateActiveNavLink() {
-            let current = 'hero'; // Default to hero
+            updateHeaderHeight(); // Ensure headerHeight is current
+            let currentSectionId = 'hero'; // Default to hero
+
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - headerHeight - 20; // Adjusted offset
+                const sectionTop = section.offsetTop - headerHeight - 20; // 20px buffer
                 if (pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
+                    currentSectionId = section.getAttribute('id');
                 }
             });
 
             navLinks.forEach(link => {
                 link.classList.remove('nav-link-active');
-                if (link.getAttribute('href').substring(1) === current) {
+                if (link.getAttribute('href').substring(1) === currentSectionId) {
                     link.classList.add('nav-link-active');
                 }
             });
         }
+        
         window.addEventListener('scroll', updateActiveNavLink);
-        window.addEventListener('load', updateActiveNavLink); // Also on load
-        window.addEventListener('resize', () => { // Recalculate header height on resize
-             if (headerElement) {
-                headerHeight = headerElement.offsetHeight;
-             }
-             updateActiveNavLink(); // Update active link based on new height
+        window.addEventListener('load', () => {
+            updateHeaderHeight(); // Initial calculation on load
+            updateActiveNavLink(); // Then update active link
+        });
+        window.addEventListener('resize', () => { 
+            updateHeaderHeight(); // Recalculate on resize
+            updateActiveNavLink(); 
         });
 
 
         // Back to Top Button Functionality
         const backToTopButton = document.getElementById('backToTopBtn');
 
-        window.onscroll = function() {
-            // Combined scroll check for broader compatibility
+        window.addEventListener('scroll', function() { // Changed from onscroll to addEventListener for consistency
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
             if (scrollTop > 100) {
                 if (backToTopButton.style.display !== "block") {
                     backToTopButton.style.display = "block";
-                    void backToTopButton.offsetWidth; // Trigger reflow
+                    void backToTopButton.offsetWidth; 
                     backToTopButton.style.opacity = "1";
                 }
             } else {
@@ -505,11 +537,11 @@
                     backToTopButton.style.opacity = "0";
                     setTimeout(() => { 
                        if(backToTopButton.style.opacity === "0") backToTopButton.style.display = "none";
-                    }, 300); // Match transition duration
+                    }, 300); 
                 }
             }
-            updateActiveNavLink(); // Also update nav link on scroll
-        };
+            // updateActiveNavLink(); // Already called by its own scroll listener
+        });
 
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
