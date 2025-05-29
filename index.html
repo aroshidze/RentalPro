@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RentalPro - ქიმწმენდის/ორთქლის აპარატების გაქირავება</title>
+    <meta name="description" content="RentalPro - ქიმწმენდის და ორთქლის აპარატების გაქირავება თბილისში. პროფესიონალური დასუფთავების ტექნიკა საუკეთესო ფასად.">
+    <meta name="keywords" content="ქიმწმენდის აპარატი, ორთქლის აპარატი, ქიმწმენდის აპარატების გაქირავება, ორთქლის აპარატების ქირაობა, karcher, puzzi, sg 4/4, sc 3, rentalpro, რენტალპრო, 598225544">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth; /* Ensures smooth scrolling for anchor links */
+        }
+        body {
+            font-family: 'Noto Sans Georgian', sans-serif;
+            
+        }
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0; /* Video layer, behind content but above parent's static background */
+            filter: brightness(0.5); /* Darkens video for text readability */
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.15), 0 15px 15px -10px rgba(0, 0, 0, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; /* Tailwind slate-200 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891b2; 
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .product-card, .feature-icon-container { /* Grouped for observer */
+            opacity: 0; 
+        }
+        .animated-gradient-button {
+            background-image: linear-gradient(to right, #06b6d4 0%, #0891b2 50%, #06b6d4 100%);
+            background-size: 200% auto;
+            transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .animated-gradient-button:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+        .feature-icon-container i {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .feature-icon-container:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: #0891b2; 
+        }
+        .nav-link-active {
+            color: #22d3ee; 
+            position: relative;
+        }
+        .nav-link-active::after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 2px;
+            bottom: -4px;
+            left: 15%;
+            background-color: #22d3ee; 
+            transition: width 0.3s ease;
+        }
+        #backToTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            display: none; /* Hidden by default */
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800"> 
+
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <a href="#hero" class="text-3xl font-bold tracking-wider hover:text-cyan-400 transition duration-300">
+                R E N T A L P R O
+            </a>
+            <nav id="mainNav" class="mt-4 md:mt-0 space-x-2 sm:space-x-4 text-lg">
+                <a href="#hero" class="nav-link px-2 py-1 hover:text-cyan-400 transition duration-300">მთავარი</a>
+                <a href="#services" class="nav-link px-2 py-1 hover:text-cyan-400 transition duration-300">სერვისები</a>
+                <a href="#about" class="nav-link px-2 py-1 hover:text-cyan-400 transition duration-300">ჩვენს შესახებ</a>
+                <a href="#contact" class="nav-link px-2 py-1 hover:text-cyan-400 transition duration-300">კონტაქტი</a>
+            </nav>
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                <a href="tel:598225544" class="text-xl font-semibold hover:text-cyan-400 transition duration-300 flex items-center">
+                    <i class="fas fa-phone-alt mr-2"></i>598 22 55 44
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="relative h-[70vh] md:h-[85vh] flex items-center justify-center text-center text-white bg-slate-800 overflow-hidden">
+        <video autoplay loop muted playsinline class="hero-video-bg">
+             <source src="https://videos.pexels.com/video-files/4205809/4205809-uhd_2560_1440_25fps.mp4" type="video/mp4">
+             Your browser does not support the video tag.
+        </video>
+        <div class="relative z-10 p-6"> 
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 animate-fadeInUp" style="animation-delay: 0.2s; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                ქიმწმენდის და ორთქლის აპარატების გაქირავება
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 animate-fadeInUp" style="animation-delay: 0.4s; text-shadow: 1px 1px 4px rgba(0,0,0,0.7);">
+                პროფესიონალური დასუფთავება თქვენს ხელშია - იქირავეთ უმაღლესი ხარისხის ტექნიკა!
+            </p>
+            <a href="#services" class="animated-gradient-button text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 animate-fadeInUp" style="animation-delay: 0.6s;">
+                იხილეთ სერვისები <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-800">ჩვენი აპარატები</h2>
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="product-card bg-slate-50 rounded-xl shadow-xl overflow-hidden flex flex-col card-hover-effect">
+                    <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/puzzi_10_1.jpg" 
+                         alt="Puzzi 10/1 ქიმწმენდის აპარატი" 
+                         class="w-full h-60 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/06b6d4/ffffff?text=Puzzi+10/1'; this.alt='Puzzi 10/1 სურათი მიუწვდომელია';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-700">PUZZI 10/1</h3>
+                        <p class="text-sm text-slate-600 mb-1">პროფესიონალური ქიმიური წმენდის აპარატი</p>
+                        <p class="text-slate-600 mb-3 text-sm"><b>ფასი:</b> 3სთ - 50₾, 24სთ - 80₾</p>
+                        <p class="text-sm text-slate-500 mb-4 flex-grow min-h-[60px]">Puzzi 10/1 ტექსტილის და იატაკის საცმით...</p>
+                        <button onclick="openModal('modal1')" class="mt-auto w-full animated-gradient-button text-white font-semibold py-2.5 px-4 rounded-lg transition duration-300">სრულად...</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-slate-50 rounded-xl shadow-xl overflow-hidden flex flex-col card-hover-effect">
+                    <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/puzzi_8_1.jpg" 
+                         alt="Puzzi 8/1 ქიმწმენდის აპარატი" 
+                         class="w-full h-60 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0891b2/ffffff?text=Puzzi+8/1'; this.alt='Puzzi 8/1 სურათი მიუწვდომელია';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-700">PUZZI 8/1</h3>
+                        <p class="text-sm text-slate-600 mb-1">პროფესიონალური ქიმიური წმენდის აპარატი</p>
+                        <p class="text-slate-600 mb-3 text-sm"><b>ფასი:</b> 3სთ - 50₾, 24სთ - 80₾</p>
+                        <p class="text-sm text-slate-500 mb-4 flex-grow min-h-[60px]">Puzzi 8/1 მძლავრი და კომპაქტური ქიმწმენდის აპარატი...</p>
+                        <button onclick="openModal('modal2')" class="mt-auto w-full animated-gradient-button text-white font-semibold py-2.5 px-4 rounded-lg transition duration-300">სრულად...</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-slate-50 rounded-xl shadow-xl overflow-hidden flex flex-col card-hover-effect">
+                    <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/sg44.jpg" 
+                         alt="SG 4/4 ორთქლის აპარატი" 
+                         class="w-full h-60 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/0e7490/ffffff?text=SG+4/4'; this.alt='SG 4/4 სურათი მიუწვდომელია';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-700">SG 4/4</h3>
+                        <p class="text-sm text-slate-600 mb-1">პროფესიონალური ორთქლის აპარატი</p>
+                        <p class="text-slate-600 mb-3 text-sm"><b>ფასი:</b> 24სთ - 120₾</p>
+                        <p class="text-sm text-slate-500 mb-4 flex-grow min-h-[60px]">SG 4/4 კომპაქტური და გამძლე ორთქლით წმენდის აპარატი...</p>
+                        <button onclick="openModal('modal3')" class="mt-auto w-full animated-gradient-button text-white font-semibold py-2.5 px-4 rounded-lg transition duration-300">სრულად...</button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-slate-50 rounded-xl shadow-xl overflow-hidden flex flex-col card-hover-effect">
+                    <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/SC3%20.jpg" 
+                         alt="SC 3 EasyFix ორთქლის აპარატი" 
+                         class="w-full h-60 object-cover"
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400/155e75/ffffff?text=SC+3'; this.alt='SC 3 EasyFix სურათი მიუწვდომელია';">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2 text-slate-700">SC 3 EasyFix</h3>
+                        <p class="text-sm text-slate-600 mb-1">ორთქლის აპარატი</p>
+                        <p class="text-slate-600 mb-3 text-sm"><b>ფასი:</b> 24სთ - 65₾</p>
+                        <p class="text-sm text-slate-500 mb-4 flex-grow min-h-[60px]">SC3 EasyFix შექმნილი სახლის პირობებში ანტიბაქტერიული წმენდისთვის...</p>
+                        <button onclick="openModal('modal4')" class="mt-auto w-full animated-gradient-button text-white font-semibold py-2.5 px-4 rounded-lg transition duration-300">სრულად...</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="py-16 md:py-24 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-slate-800">რატომ RentalPro?</h2>
+            <div class="grid md:grid-cols-3 gap-10 text-center">
+                <div class="p-6 animate-fadeInUp feature-icon-container" style="animation-delay: 0.1s;">
+                    <div class="text-cyan-500 mb-6"><i class="fas fa-medal fa-4x"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">პროფესიონალური ტექნიკა</h3>
+                    <p class="text-slate-600">ჩვენ გთავაზობთ მხოლოდ Kärcher-ის უმაღლესი ხარისხის, გამოცდილ და საიმედო აპარატებს.</p>
+                </div>
+                <div class="p-6 animate-fadeInUp feature-icon-container" style="animation-delay: 0.3s;">
+                    <div class="text-cyan-500 mb-6"><i class="fas fa-hand-holding-usd fa-4x"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">ხელმისაწვდომი ფასები</h3>
+                    <p class="text-slate-600">მიიღეთ საუკეთესო სერვისი ბაზარზე ყველაზე კონკურენტულ ფასად.</p>
+                </div>
+                <div class="p-6 animate-fadeInUp feature-icon-container" style="animation-delay: 0.5s;">
+                    <div class="text-cyan-500 mb-6"><i class="fas fa-shipping-fast fa-4x"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">მოქნილი მიწოდება</h3>
+                    <p class="text-slate-600">ტრანსპორტირების სერვისი თბილისის მასშტაბით თქვენი კომფორტისთვის.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-slate-800">დაგვიკავშირდით</h2>
+            <div class="max-w-3xl mx-auto bg-slate-50 p-8 md:p-12 rounded-xl shadow-xl">
+                <p class="text-lg text-center text-slate-700 mb-10">
+                    მზად ვართ გიპასუხოთ ნებისმიერ კითხვაზე და დაგეხმაროთ საუკეთესო აპარატის შერჩევაში.
+                </p>
+                <div class="text-center space-y-8">
+                    <div>
+                        <a href="tel:598225544" class="inline-flex items-center justify-center text-2xl font-semibold text-cyan-600 hover:text-cyan-700 transition duration-300 bg-cyan-100 hover:bg-cyan-200 px-10 py-5 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105">
+                            <i class="fas fa-phone-alt mr-3"></i>598 22 55 44
+                        </a>
+                    </div>
+                    <div>
+                        <a href="mailto:sales@rentalpro.ge" class="inline-flex items-center justify-center text-xl text-slate-600 hover:text-cyan-600 transition duration-300">
+                            <i class="fas fa-envelope mr-3"></i>sales@rentalpro.ge
+                        </a>
+                    </div>
+                    <div class="flex justify-center space-x-6 pt-6">
+                        <a href="https://www.facebook.com/qimwmendis/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-blue-600 transition duration-300 text-4xl transform hover:scale-110">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a href="https://wa.me/995598225544" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-green-500 transition duration-300 text-4xl transform hover:scale-110">
+                            <i class="fab fa-whatsapp-square"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_rentalpro_/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:text-pink-500 transition duration-300 text-4xl transform hover:scale-110">
+                            <i class="fab fa-instagram-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-slate-300 py-12 text-center">
+        <div class="container mx-auto px-6">
+            <p class="mb-2 text-lg">R E N T A L P R O &copy; <span id="currentYear"></span>. ყველა უფლება დაცულია.</p>
+            <p class="text-sm">პროფესიონალური ქიმწმენდისა და ორთქლის აპარატების გაქირავება.</p>
+        </div>
+    </footer>
+
+    <button id="backToTopBtn" onclick="scrollToTop()" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-full shadow-lg animated-gradient-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div id="modal1" class="modal fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 opacity-0 invisible z-[100]">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">PUZZI 10/1 - დეტალურად</h2>
+                <button onclick="closeModal('modal1')" class="text-slate-500 hover:text-slate-700 text-3xl leading-none">&times;</button>
+            </div>
+            <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/puzzi_10_1.jpg" 
+                 alt="Puzzi 10/1 დეტალურად" 
+                 class="w-full h-auto rounded-lg mb-6 object-contain max-h-80"
+                 onerror="this.onerror=null;this.src='https://placehold.co/800x500/06b6d4/ffffff?text=Puzzi+10/1'; this.alt='Puzzi 10/1 სურათი მიუწვდომელია';">
+            <h3 class="text-xl font-semibold mb-2 text-slate-700">პროფესიონალური ქიმიური წმენდის აპარატი PUZZI 10/1</h3>
+            <p class="text-slate-600 mb-4"><b>აღწერა:</b> Puzzi 10/1 ტექსტილის და იატაკის საცმით განსაკუთრებულად კარგი მოდელია საშუალო ზომის ზედაპირების ჰიგიენური და ეფექტური დასუფთავებისთვის. საწმენდი საშუალების დასხმის ტექნოლოგიით, დასუფთავება ხდება ღრმად. ვიწრო საცმის წყალობით, მარტივდება ვიწრო ადგილებიდან დაბინძურების აღება. ქიმწმენდის აპარატი აღჭურვილია ინტეგრირებული სადენის კაუჭით და სახელურის სამაგრით.</p>
+            <p class="text-slate-700 font-semibold mb-1">ფასი:</p>
+            <ul class="list-disc list-inside text-slate-600 mb-6 space-y-1">
+                <li>3 საათი - 50 ლარი</li>
+                <li>24 საათი - 80 ლარი</li>
+                <li>ტრანსპორტირება - 5 ლარიდან (თბილისი)</li>
+            </ul>
+            <a href="tel:598225544" class="w-full block text-center animated-gradient-button text-white font-bold py-3 px-6 rounded-lg transition duration-300"><i class="fas fa-phone-alt mr-2"></i>დარეკეთ: 598 22 55 44</a>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 opacity-0 invisible z-[100]">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">PUZZI 8/1 - დეტალურად</h2>
+                <button onclick="closeModal('modal2')" class="text-slate-500 hover:text-slate-700 text-3xl leading-none">&times;</button>
+            </div>
+            <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/puzzi_8_1.jpg" 
+                 alt="Puzzi 8/1 დეტალურად" 
+                 class="w-full h-auto rounded-lg mb-6 object-contain max-h-80"
+                 onerror="this.onerror=null;this.src='https://placehold.co/800x500/0891b2/ffffff?text=Puzzi+8/1'; this.alt='Puzzi 8/1 სურათი მიუწვდომელია';">
+            <h3 class="text-xl font-semibold mb-2 text-slate-700">პროფესიონალური ქიმიური წმენდის აპარატი PUZZI 8/1</h3>
+            <p class="text-slate-600 mb-4"><b>აღწერა:</b> მძლავრი და კომპაქტური ქიმწმენდის აპარატი ხალიჩების წმენდისთვის გთავაზობთ საუკეთესო შესრუტვის ძალას და მაღალი ხარისხის დასუფთავებას. Puzzi 8/1 C დასუფთავებულ ტექსტილის ზედაპირებს ხელახლა გამოყენების საშუალებას ძალიან მოკლე დროში მისცემს. ელექტროსადენი შეგიძლიათ მოათავსოთ სპეციალურ კაუჭზე.</p>
+            <p class="text-slate-700 font-semibold mb-1">ფასი:</p>
+            <ul class="list-disc list-inside text-slate-600 mb-6 space-y-1">
+                <li>3 საათი - 50 ლარი</li>
+                <li>24 საათი - 80 ლარი</li>
+                <li>ტრანსპორტირება - 5 ლარიდან (თბილისი)</li>
+            </ul>
+            <a href="tel:598225544" class="w-full block text-center animated-gradient-button text-white font-bold py-3 px-6 rounded-lg transition duration-300"><i class="fas fa-phone-alt mr-2"></i>დარეკეთ: 598 22 55 44</a>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 opacity-0 invisible z-[100]">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">SG 4/4 - დეტალურად</h2>
+                <button onclick="closeModal('modal3')" class="text-slate-500 hover:text-slate-700 text-3xl leading-none">&times;</button>
+            </div>
+            <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/sg44.jpg" 
+                 alt="SG 4/4 დეტალურად" 
+                 class="w-full h-auto rounded-lg mb-6 object-contain max-h-80"
+                 onerror="this.onerror=null;this.src='https://placehold.co/800x500/0e7490/ffffff?text=SG+4/4'; this.alt='SG 4/4 სურათი მიუწვდომელია';">
+            <h3 class="text-xl font-semibold mb-2 text-slate-700">პროფესიონალური ორთქლის აპარატი SG 4/4</h3>
+            <p class="text-slate-600 mb-4"><b>აღწერა:</b> SG 4/4 არის კომპაქტური და გამძლე ორთქლით წმენდის აპარატი, რომელიც გთავაზობთ შეუდარებელ ძალას და სერტიფიცირებულ დეზინფექციას. 4 ბარიანი ორთქლის წნევის წყალობით, მიიღწევა საუკეთესო შედეგი. VapoHydro ფუნქციის და მუდმივად ცვალებადი ორთქლის ნაკადის რეგულირებით აპარატი შეგიძლიათ ნებისმიერ დასუფთავების სამუშაოს ინდივიდუალურად შეუსაბამოთ. დანადგარი მრავალმხრივ გამოსადეგია და ყოველგვარი ქიმიური საშუალებების გარეშე ასუფთავებს. აქვს ინტეგრირებული აქსესუარების სათავსო, ელექტროსადენის კაუჭი და ორი იატაკის საცმი, აბრაზიული და ჰიგიენური დასუფთავებისთვის. აღნიშნული ორთქლის აპარატი ქირავდება 24 საათით.</p>
+            <p class="text-slate-700 font-semibold mb-1">ფასი:</p>
+            <ul class="list-disc list-inside text-slate-600 mb-6 space-y-1">
+                <li>24 საათი - 120 ლარი</li>
+                <li>ტრანსპორტირება - 5 ლარიდან (თბილისი)</li>
+            </ul>
+            <a href="tel:598225544" class="w-full block text-center animated-gradient-button text-white font-bold py-3 px-6 rounded-lg transition duration-300"><i class="fas fa-phone-alt mr-2"></i>დარეკეთ: 598 22 55 44</a>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 opacity-0 invisible z-[100]">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95 opacity-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-slate-800">SC 3 EasyFix - დეტალურად</h2>
+                <button onclick="closeModal('modal4')" class="text-slate-500 hover:text-slate-700 text-3xl leading-none">&times;</button>
+            </div>
+            <img src="https://raw.githubusercontent.com/aroshidze/RentalPro/refs/heads/main/SC3%20.jpg" 
+                 alt="SC 3 EasyFix დეტალურად" 
+                 class="w-full h-auto rounded-lg mb-6 object-contain max-h-80"
+                 onerror="this.onerror=null;this.src='https://placehold.co/800x500/155e75/ffffff?text=SC+3'; this.alt='SC 3 EasyFix სურათი მიუწვდომელია';">
+            <h3 class="text-xl font-semibold mb-2 text-slate-700">ორთქლის აპარატი SC 3 EasyFix</h3>
+            <p class="text-slate-600 mb-4"><b>აღწერა:</b> ორთქლის აპარატი SC3 EASYFIX არის შექმნილი სახლის პირობებში ანტიბაქტერიული წმენდისთვის, რომლის წყალობითაც შესაძლებელია მაქსიმალური სისუფთავის და ჰიგიენურობის უზრუნველყოფა. ცხელი ორთქლის ნაკადით ადვილად იწმინდება მინის, აკრილის, ფილების და სხვა ზედაპირები, ამასთან გამოიყენება წყალგამძლე ლამინატის იატაკის გასაწმენდადაც. აპარატის ავზი არის 1 ლიტრიანი და აქვს საშუალება დაასუფთავოს 75 კვადრატული მეტრი. ორთქლის დარტყმის სიმძლავრე კი 3.5 ბარია, რითაც ხდება სიღრმისეული წმენდა და ბაქტერიებისგან განთავისუფლება 99,99%-ით მხოლოდ წყლის ხარჯზე, ქიმიის და დანამატების გარეშე. აპარატს მოყვება აქსესუარები, რომლებიც სხვადასხვა მიუდგომელ ადგილებში წმენდისთვის გამოიყენება. აღნიშნული ორთქლის აპარატი ქირავდება 24 საათით.</p>
+            <p class="text-slate-700 font-semibold mb-1">ფასი:</p>
+            <ul class="list-disc list-inside text-slate-600 mb-6 space-y-1">
+                <li>24 საათი - 65 ლარი</li>
+                <li>ტრანსპორტირება - 5 ლარიდან (თბილისი)</li>
+            </ul>
+            <a href="tel:598225544" class="w-full block text-center animated-gradient-button text-white font-bold py-3 px-6 rounded-lg transition duration-300"><i class="fas fa-phone-alt mr-2"></i>დარეკეთ: 598 22 55 44</a>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('invisible');
+                void modal.offsetWidth; 
+                modal.classList.add('opacity-100', 'visible');
+                document.body.style.overflow = 'hidden'; 
+                const modalContent = modal.querySelector('.modal-content');
+                if(modalContent) {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('opacity-100');
+                modal.classList.add('opacity-0');
+                const modalContent = modal.querySelector('.modal-content');
+                 if(modalContent) {
+                    modalContent.classList.remove('scale-100', 'opacity-100');
+                    modalContent.classList.add('scale-95', 'opacity-0');
+                }
+                setTimeout(() => {
+                    modal.classList.add('invisible');
+                    modal.classList.remove('visible'); 
+                    document.body.style.overflow = 'auto'; 
+                }, 300); 
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal.visible');
+                openModals.forEach(modal => closeModal(modal.id));
+            }
+        });
+        
+        document.addEventListener('click', function(event) {
+            const openModals = document.querySelectorAll('.modal.visible');
+            openModals.forEach(modal => {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent && !modalContent.contains(event.target) && modal === event.target) {
+                    closeModal(modal.id);
+                }
+            });
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            root: null, 
+            rootMargin: '0px',
+            threshold: 0.1 
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    let delay = 0;
+                    if (entry.target.classList.contains('product-card')) {
+                        // Calculate delay based on its position in the grid for a nice row-by-row effect
+                        const cardsInRow = window.innerWidth < 640 ? 1 : (window.innerWidth < 1024 ? 2 : 4);
+                        delay = (Array.from(entry.target.parentNode.children).indexOf(entry.target) % cardsInRow) * 0.12;
+                    } else if (entry.target.classList.contains('feature-icon-container')) {
+                         delay = Array.from(entry.target.parentNode.children).indexOf(entry.target) * 0.12; 
+                    }
+                    entry.target.style.animationDelay = `${delay}s`;
+                    entry.target.classList.add('animate-fadeInUp');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        document.querySelectorAll('.animate-fadeInUp:not(#hero .animate-fadeInUp), .product-card, .feature-icon-container').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Active navigation link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('#mainNav a.nav-link');
+        const headerElement = document.querySelector('header'); // Get the header element
+        let headerHeight = 0;
+        if (headerElement) { // Check if headerElement is found
+             headerHeight = headerElement.offsetHeight;
+        }
+
+
+        function updateActiveNavLink() {
+            let current = 'hero'; // Default to hero
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 20; // Adjusted offset
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-link-active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('nav-link-active');
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveNavLink);
+        window.addEventListener('load', updateActiveNavLink); // Also on load
+        window.addEventListener('resize', () => { // Recalculate header height on resize
+             if (headerElement) {
+                headerHeight = headerElement.offsetHeight;
+             }
+             updateActiveNavLink(); // Update active link based on new height
+        });
+
+
+        // Back to Top Button Functionality
+        const backToTopButton = document.getElementById('backToTopBtn');
+
+        window.onscroll = function() {
+            // Combined scroll check for broader compatibility
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+            if (scrollTop > 100) {
+                if (backToTopButton.style.display !== "block") {
+                    backToTopButton.style.display = "block";
+                    void backToTopButton.offsetWidth; // Trigger reflow
+                    backToTopButton.style.opacity = "1";
+                }
+            } else {
+                if (backToTopButton.style.opacity === "1") {
+                    backToTopButton.style.opacity = "0";
+                    setTimeout(() => { 
+                       if(backToTopButton.style.opacity === "0") backToTopButton.style.display = "none";
+                    }, 300); // Match transition duration
+                }
+            }
+            updateActiveNavLink(); // Also update nav link on scroll
+        };
+
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+    </script>
+</body>
+</html>
