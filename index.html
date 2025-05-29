@@ -132,7 +132,7 @@
         </div>
     </header>
 
-    <section id="hero" class="relative h-[70vh] md:h-[85vh] flex items-center justify-center text-center text-white bg-slate-800 overflow-hidden">
+    <section id="hero" class="relative h-[70vh] md:min-h-screen flex items-center justify-center text-center text-white bg-slate-800 overflow-hidden">
         <video autoplay loop muted playsinline class="hero-video-bg">
              <source src="https://videos.pexels.com/video-files/4205809/4205809-uhd_2560_1440_25fps.mp4" type="video/mp4">
              Your browser does not support the video tag.
@@ -455,6 +455,7 @@
         const navLinks = document.querySelectorAll('#mainNav a.nav-link');
         const sections = document.querySelectorAll('section[id]');
         let headerHeight = 0;
+        const scrollOffsetBuffer = -1; // Changed from 15 to -1 to scroll slightly further down
 
         function updateHeaderHeight() {
             if (headerElement) {
@@ -465,11 +466,16 @@
         // Function to handle smooth scroll to section with offset
         function scrollToSection(event) {
             event.preventDefault(); // Prevent default anchor jump
+            updateHeaderHeight(); // Ensure header height is current before calculating
             const targetId = event.currentTarget.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
 
             if (targetSection) {
-                const targetPosition = targetSection.offsetTop - headerHeight;
+                let targetPosition = targetSection.offsetTop - headerHeight - scrollOffsetBuffer;
+                // For hero, ensure it scrolls to the very top, ignoring buffer and header height for this specific target.
+                if (targetId === 'hero') { 
+                    targetPosition = 0;
+                }
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -487,6 +493,11 @@
         if (logoLink) {
             logoLink.addEventListener('click', scrollToSection);
         }
+         // Also add to the hero button if it points to #services
+        const heroButtonLink = document.querySelector('#hero a[href="#services"]');
+        if (heroButtonLink) {
+            heroButtonLink.addEventListener('click', scrollToSection);
+        }
 
 
         // Active navigation link highlighting
@@ -495,7 +506,13 @@
             let currentSectionId = 'hero'; // Default to hero
 
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - headerHeight - 20; // 20px buffer
+                // Adjust the trigger point for active link slightly higher than scroll target
+                // This makes the link active when more of the section is in view below the header
+                // The (scrollOffsetBuffer * -1) part is to counteract the negative buffer used for scrolling, 
+                // ensuring the active link highlight is based on a more visually accurate top of section.
+                const activeLinkTriggerOffset = headerHeight + (scrollOffsetBuffer * -1) + 40; 
+                const sectionTop = section.offsetTop - activeLinkTriggerOffset; 
+                
                 if (pageYOffset >= sectionTop) {
                     currentSectionId = section.getAttribute('id');
                 }
@@ -511,11 +528,11 @@
         
         window.addEventListener('scroll', updateActiveNavLink);
         window.addEventListener('load', () => {
-            updateHeaderHeight(); // Initial calculation on load
-            updateActiveNavLink(); // Then update active link
+            updateHeaderHeight(); 
+            updateActiveNavLink(); 
         });
         window.addEventListener('resize', () => { 
-            updateHeaderHeight(); // Recalculate on resize
+            updateHeaderHeight(); 
             updateActiveNavLink(); 
         });
 
@@ -523,7 +540,7 @@
         // Back to Top Button Functionality
         const backToTopButton = document.getElementById('backToTopBtn');
 
-        window.addEventListener('scroll', function() { // Changed from onscroll to addEventListener for consistency
+        window.addEventListener('scroll', function() { 
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
             if (scrollTop > 100) {
@@ -540,7 +557,6 @@
                     }, 300); 
                 }
             }
-            // updateActiveNavLink(); // Already called by its own scroll listener
         });
 
         function scrollToTop() {
